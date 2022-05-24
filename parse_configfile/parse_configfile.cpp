@@ -15,12 +15,40 @@
 
 class configObj {
 public:
+    /**
+     * @brief 读取并解析配置文件，这个是核心函数
+     * 
+     * @param configFile 
+     */
     void readConfigFile(std::string configFile);
+
+    /**
+     * @brief 测试函数，把保存配置的map，都打印出来
+     * 
+     */
     void echo_config(void);
+
+    /**
+     * @brief 根据key值，从map中读取value
+     * 
+     * @param key 
+     * @return std::string 
+     */
+    std::string getConfigValue(std::string key);
 
 private:
   std::map<std::string, std::string> configMap_;
 };
+
+
+std::string configObj::getConfigValue(std::string key) {
+    auto settingsIterator = configMap_.find(key);
+    if (settingsIterator != configMap_.end()) {
+        return settingsIterator->second;
+    } else {
+        return std::string(""); // return an empty string when the setting is not configured.
+    }
+}
 
 void configObj::readConfigFile(std::string configFile) {
 
